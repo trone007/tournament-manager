@@ -1,0 +1,27 @@
+{
+    "name": "stone/test",
+    "description": "custom framework",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/",
+            "Http\\": "http/",
+            "Core\\": "core/"
+        }
+    },
+    "require": {
+        "doctrine/orm": "^3.0",
+        "php-di/php-di": "dev-master",
+        "ocramius/proxy-manager": "2.2.x-dev",
+        "vlucas/phpdotenv": "^3.3@dev",
+        "twig/twig": "^2.0"
+    },
+    "license": "Stone",
+    "authors": [
+        {
+            "name": "stone",
+            "email": "scouserlfc91@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

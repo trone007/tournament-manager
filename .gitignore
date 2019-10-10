@@ -1,0 +1,7 @@
+*.sqlite
+/cache/*
+/vendor/
+.env
+*.DS_Store
+/logs/
+/public/dayside/

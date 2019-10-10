@@ -1,0 +1,30 @@
+{% extends "layout.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+{% block body_content %}
+    <table class="table">
+        <tr>
+            <th>Команда</th>
+            <th>Итоговое место</th>
+            <th>Голов забито</th>
+            <th>В среднем за матч забито</th>
+            <th>Лучший матч забито</th>
+            <th>Пропущено</th>
+        </tr>
+        {% set i = 1 %}
+        {% for statistic in statistics %}
+            <tr>
+                <td>{{ statistic.name }}</td>
+                <td>{{ i }}</td>
+                <td>{{ statistic.scored }}</td>
+                <td>{{ statistic.averageScored }}</td>
+                <td>{{ statistic.maxScored }}</td>
+                <td>{{ statistic.missed }}</td>
+                {% set i = i+1 %}
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

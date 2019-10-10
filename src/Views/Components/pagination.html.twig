@@ -1,0 +1,34 @@
+{% if pages > 1 %}
+    {% set nearbyPagesLimit = 4 %}
+    <nav aria-label="...">
+        <ul class="pagination">
+            {% if currentPage != 1 %}
+                <li class="page-item">
+                    <a class="page-link js-navigation" href="#" data-id="1">First</a>
+                </li>
+            {% endif %}
+            {% for i in 1..pages %}
+                {% if 0 == (currentPage - nearbyPagesLimit) - loop.index %} {# dot before #}
+                    <li class="page-item disabled">
+                        <a href="#" class="page-item">...</a>
+                    </li>
+                {% elseif 0 == (currentPage + nearbyPagesLimit) - loop.index %} {# dot after #}
+                    <li class="page-item disabled">
+                        <a href="#" class="page-item">...</a>
+                    </li>
+                {% elseif 0 < (currentPage - nearbyPagesLimit) - loop.index %} {# hide all before #}
+                {% elseif 0 > (currentPage + nearbyPagesLimit) - loop.index %} {# hide all after #}
+                {% else %}
+                    <li class="page-item{% if currentPage == loop.index  %}  active{% endif %}">
+                        <a class="page-link js-navigation" href="#" data-id="{{ loop.index }}">{{ loop.index }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% if currentPage != pages %}
+                <li class="page-item">
+                    <a class="page-link js-navigation" href="#" data-id="{{ pages }}">Last</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

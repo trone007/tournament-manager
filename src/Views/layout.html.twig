@@ -1,0 +1,33 @@
+{% extends "default.html.twig" %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/base.css?v=1">
+{% endblock %}
+{% block content %}
+    <header class="py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-sm-1">
+                    <div class="logo">
+                        <h1> <a href="/"><span class="fa fa-envelope-open-o" aria-hidden="true"></span>Fifa Tournament Manager</a></h1>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-1">
+                    {% if session.get('user') %}
+                        <a class="btn btn-white float-left" href="/statistic">Статистика</a>
+                    {% endif %}
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                    {% if not session.get('user') %}
+                        <a class="btn btn-white" href="/login">Войти</a>
+                    {% else %}
+                        <a class="btn btn-white" href="/logout">Выйти</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="body">
+        {% block body_content %}
+        {% endblock %}
+    </div>
+{% endblock %}
