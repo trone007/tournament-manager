@@ -80,6 +80,8 @@ class TournamentService implements TournamentServiceInterface
      */
     public function saveScore(int $tournamentId, int $gameNumber, int $homeScore, int $awayScore, string $winnerOption): void
     {
+        $homeScore = abs($homeScore);
+        $awayScore = abs($awayScore);
         /**
          * @var Tournament $tournament
          */
