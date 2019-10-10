@@ -210,6 +210,7 @@ class TournamentService implements TournamentServiceInterface
      */
     public function setTournamentBracketTeam(int $tournamentId, int $gameNumber, int $teamId, string $teamPosition)
     {
+        $gameNumber = abs($gameNumber);
         /**
          * @var Tournament $tournament
          */
@@ -229,6 +230,9 @@ class TournamentService implements TournamentServiceInterface
          */
         $team = $this->teamRepository->find($teamId);
         if(!$team)
+            throw new WrongParametersException();
+
+        if($gameNumber > $tournament->getFirstRound()->getTeamCount() / 2)
             throw new WrongParametersException();
 
 
