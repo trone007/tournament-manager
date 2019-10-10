@@ -30,7 +30,8 @@ class TeamController extends Controller
 
     public function teamsStatistics()
     {
-        $this->render('statistic', ['statistics' => $this->teamService->calculateTeamStatistics()]);
+        $tournamentId = $this->request->getParameter("tournamentId", 1);
+        $this->render('statistic', ['statistics' => $this->teamService->calculateTeamStatistics($tournamentId)]);
     }
 
     public function getTeamList()

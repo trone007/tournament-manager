@@ -61,10 +61,11 @@ class TeamRepository extends BaseRepository
     }
 
     /**
+     * @param int $tournamentId
      * @return array|null
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function calculateTeamsStatistic(): ?array
+    public function calculateTeamsStatistic(int $tournamentId = 1): ?array
     {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id','id', Type::getType(Type::INTEGER));
@@ -81,6 +82,7 @@ class TeamRepository extends BaseRepository
                     SELECT t.id, MAX (CASE WHEN t.id = tb.home_team_id THEN home_score ELSE away_score END) as maxScored
                     FROM team t
                              JOIN tournament_bracket tb ON (t.id = tb.home_team_id OR t.id = tb.away_team_id )
+                    WHERE tb.tournament_id = :tournament
                     GROUP BY 1
                 )
                 SELECT
@@ -96,9 +98,11 @@ class TeamRepository extends BaseRepository
                     JOIN tournament_bracket tb ON (t.id = tb.home_team_id OR t.id = tb.away_team_id )
                     JOIN round r ON tb.round_id = r.id
                     LEFT JOIN max_scored ms ON t.id = ms.id
+                WHERE tb.tournament_id = :tournament
                 GROUP BY 1,2
                 ORDER BY r."order" DESC
             ',$rsm)
+            ->setParameter('tournament', $tournamentId)
             ->getResult()
             ;
 

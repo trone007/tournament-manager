@@ -19,7 +19,8 @@ interface TeamServiceInterface
     public function getAvailableTeam(int $tournamentId, int $roundId):array;
 
     /**
+     * @param int $tournamentId
      * @return array|null
      */
-    public function calculateTeamStatistics():?array;
+    public function calculateTeamStatistics(int $tournamentId):?array;
 }

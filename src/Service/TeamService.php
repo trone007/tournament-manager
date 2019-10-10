@@ -78,11 +78,12 @@ class TeamService implements TeamServiceInterface
     }
 
     /**
+     * @param int $tournamentId
      * @return array|null
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function calculateTeamStatistics():?array
+    public function calculateTeamStatistics(int $tournamentId):?array
     {
-        return $this->teamRepository->calculateTeamsStatistic();
+        return $this->teamRepository->calculateTeamsStatistic($tournamentId);
     }
 }
