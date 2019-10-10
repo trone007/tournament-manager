@@ -2,7 +2,6 @@
 namespace Src\Repository;
 
 use Doctrine\DBAL\Types\Type;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Src\Model\Round;
 use Src\Model\Team;
@@ -89,6 +88,7 @@ class TeamRepository extends BaseRepository
                        t.id,
                        t.name,
                        ms.maxScored,
+                       t.id == tb.winner_id as lastGameWin,
                        MAX(game_number) as lastGame,
                        MAX(round_id) as lastRound,
                        SUM (CASE WHEN t.id = tb.home_team_id THEN home_score ELSE away_score END) as scored,
@@ -100,7 +100,7 @@ class TeamRepository extends BaseRepository
                     LEFT JOIN max_scored ms ON t.id = ms.id
                 WHERE tb.tournament_id = :tournament
                 GROUP BY 1,2
-                ORDER BY r."order" DESC
+                ORDER BY r."order" DESC, lastGameWin DESC
             ',$rsm)
             ->setParameter('tournament', $tournamentId)
             ->getResult()

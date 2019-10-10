@@ -109,9 +109,8 @@ class TournamentService implements TournamentServiceInterface
         $tournamentBracket->setAwayScore($awayScore);
 
         $nextRounds = $this->roundService->getNextRoundsByRound($tournamentBracket->getRound());
-
+        $this->tournamentBracketRepository->save($tournamentBracket);
         if(!$nextRounds) {
-            $this->tournamentBracketRepository->save($tournamentBracket);
             return;
         }
 
